@@ -33,3 +33,64 @@ Reference :- https://store.pw.live/
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+List of API :-
+Main API : wp-json/wp/v2
+For Posts/Question : wp-json/wp/v2/posts
