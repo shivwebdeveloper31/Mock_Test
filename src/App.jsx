@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import NavList from "./Components/NavList";
+import Footer from "./Components/Footer";
+import Home from "./Components/Home";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
         <Navbar />
         <NavList />
         <Outlet />
+        <Footer />
       </div>
     </>
   );

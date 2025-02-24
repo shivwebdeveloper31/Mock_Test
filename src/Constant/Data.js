@@ -58,16 +58,279 @@ export const data = [
   {
     NavList: [
       {
-        name: "PG & Govt Entrance Exams",
-        key: "pg",
+        name: "Test",
+        key: "test",
+        link: "/test",
+        dropDown: false,
       },
-      { name: "UG Entrance Exams", key: "ug" },
       {
         name: "PG & Govt Entrance Exams",
         key: "pg",
+        link: "/",
+        dropDown: true,
       },
-      { name: "UG Entrance Exams", key: "ug" },
-      { name: "UG Entrance Exams", key: "ug" },
+      {
+        name: "SSC  Exams",
+        key: "ug",
+        link: "/",
+        dropDown: true,
+      },
+      {
+        name: "PG & Govt Entrance Exams",
+        key: "pg",
+        link: "/",
+        dropDown: true,
+      },
+      {
+        name: "UG Entrance Exams",
+        key: "ug",
+        link: "/",
+        dropDown: true,
+      },
+      {
+        name: "UG Entrance Exams",
+        key: "ug",
+        link: "/",
+        dropDown: true,
+      },
     ],
+  },
+];
+
+export const DemoQutionsData = [
+  {
+    Data: {
+      testName: "All India SSC Exam",
+      qutions: [
+        {
+          id: 1,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 2,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 3,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 4,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 5,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 6,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 7,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 8,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 9,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 10,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 11,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+        {
+          id: 12,
+          qutionEnglish:
+            "Name the scheme under which 54 settlements of the Pahadi Korwa community will be connected through roads in Chhattisgarh.",
+          optionesEnglish: [
+            "PM NAMASTE",
+            "PM JANMAN",
+            "PM DEVINE",
+            "PM NAVRATNA",
+          ],
+          qutionHindi:
+            "उस योजना का नाम बताइए जिसके तहत छत्तीसगढ़ में पहाड़ी कोरवा समुदाय की 54 बस्तियों को सड़कों से जोड़ा जाएगा।",
+          optionesHindi: [
+            "पीएम नमस्ते",
+            "पीएम जनमन",
+            "पीएम डिवाइन",
+            "पीएम नवरत्न",
+          ],
+        },
+      ],
+    },
   },
 ];

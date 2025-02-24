@@ -4,7 +4,6 @@ import React from "react";
 
 function BooksList({ booksList, kyeName }) {
   console.log(booksList[kyeName], "booklist");
-
   const { books = [], heading = [] } = booksList[kyeName] || {};
 
   return (
@@ -13,16 +12,13 @@ function BooksList({ booksList, kyeName }) {
         const booksName = h.split(" ")[0];
         const filterBook = books.filter((h) => h.split(" ")[0] === booksName);
         return (
-          <div key={index}>
-            <div className=' group border flex'>
-              <h1 className='font-semibold border text-[#1b2124] py-2 px-2 hover:underline'>
+          <div key={index} className='bg-white'>
+            <div className=' group  flex'>
+              <h1 className='font-semibold  text-[#1b2124] py-2 px-2 hover:underline'>
                 {h}
               </h1>
               <span>
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className='group-hover:rotate-180 border py-3'
-                />
+                <FontAwesomeIcon icon={faArrowRight} className=' py-3' />
               </span>
             </div>
             {filterBook.map((bookName, index) => {

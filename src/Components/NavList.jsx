@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import BooksList from "./BooksList";
 import { data } from "../Constant/Data";
+import { NavLink } from "react-router-dom";
 
 function NavList() {
   const [category, setCategory] = useState(null);
@@ -10,30 +11,34 @@ function NavList() {
   const bookList = data[0];
 
   return (
-    <ul className='fixed top-20 border-b-[1px] border-gray-300 shadow-md w-full  '>
+    <ul className='sticky z-40 bg-white top-20 border-b-[1px] border-gray-300 shadow-md w-full '>
       <div className='flex cursor-pointer'>
-        {navList.map((name, index) => {
+        {navList.map((info, index) => {
           return (
-            <div
-              className='group py-3 hover:border-b-2 hover:border-[#5a4bda] hover:bg-gradient-to-t from-blue-100 to-gray-50 '
-              key={index}>
-              <li
-                className='mx-2 flex'
-                onMouseEnter={() => setCategory(name.key)}>
-                <span className='font-medium text-[16px] w-full'>
-                  {name.name}
-                </span>
-                <span className='mx-2'>
-                  <FontAwesomeIcon
-                    className='group-hover:rotate-180 transition-all duration-500 ease-in-out size-3'
-                    icon={faChevronDown}
-                  />
-                </span>
-              </li>
-              <div className='flex flex-wrap group-hover:visible absolute invisible border-black border top-12 w-1/2  px-10 py-4'>
-                <BooksList booksList={bookList} kyeName={category} />
+            <NavLink to={info.link} key={index}>
+              <div className='group py-3 hover:border-b-2 hover:border-[#5a4bda] hover:bg-gradient-to-t from-blue-100 to-gray-50'>
+                <li
+                  className='mx-2 flex'
+                  onMouseEnter={() => setCategory(info.key)}>
+                  <span className='font-medium text-[16px] w-full'>
+                    {info.name}
+                  </span>
+                  <span className='mx-2'>
+                    {info.dropDown && (
+                      <FontAwesomeIcon
+                        className='group-hover:rotate-180 transition-all duration-500 ease-in-out size-3'
+                        icon={faChevronDown}
+                      />
+                    )}
+                  </span>
+                </li>
+                {info.dropDown && (
+                  <div className='flex flex-wrap group-hover:visible absolute invisible  bg-white border top-12 w-1/2  px-10 py-4'>
+                    <BooksList booksList={bookList} kyeName={category} />
+                  </div>
+                )}
               </div>
-            </div>
+            </NavLink>
           );
         })}
       </div>

@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <>
-      <div className='grid grid-flow-col py-3 border-b-[1px] border-gray-300  fixed w-full  h-20'>
+      <div className='grid grid-flow-col z-40 bg-white py-3 border-b-[1px] border-gray-300  fixed w-full  h-20'>
         <div className='col-span-1'>
           <NavLink to='/'>
             <img className='size-16 mx-4' src={logo} alt='website-logo' />
