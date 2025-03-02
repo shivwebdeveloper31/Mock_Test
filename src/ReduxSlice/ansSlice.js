@@ -3,17 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const ansSlice = createSlice({
   name: "ans",
   initialState: {
-    time: 0,
-    questionId: "",
-    marked: false,
-    isAnsGet: false,
+    currentQuestionIndex: 0,
+    userResponses: {}, // { questionId: { answer: "option", status: "saved/review" } }
+    reviewList: [],
   },
   reducers: {
-    getQuestionId: (state, action) => {
-      state.questionId = action.payload;
-    },
-    handelIsAnsGet: (state) => {
-      state.isAnsGet = true;
+    savAnswer: (state, action) => {
+      const { questionId, answer } = action.payload;
+      state.userResponses[questionId] = { answer, status: "saved" };
     },
   },
 });

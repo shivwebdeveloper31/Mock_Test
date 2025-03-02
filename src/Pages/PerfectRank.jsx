@@ -5,40 +5,101 @@ import TestResult from "../Components/TestResult";
 import QuestionsContainer from "../Components/QuestionsContainer";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { handelQuestionsData } from "../ReduxSlice/questionDataSlice";
+import { saveNext } from "../ReduxSlice/testSlice";
 
 export default function PerfectRank() {
   const [questionNum, setQuestionNum] = useState(0);
-  const dataStore = useSelector((store) => store.questionsData);
+  const [givenAns, setGivenAns] = useState(" ");
   const [myData, setMyData] = useState([]);
-  // const dispatch = useDispatch();
-  // const getDataStore = useSelector((store) => store.questionsData);
+  const [answeredStatus, setAnsweredStatus] = useState(
+    Array(myData?.length).fill(0)
+  );
 
-  const nextQuestion = () => {
+  const dispatch = useDispatch();
+  const storeData = useSelector((store) => store.demo.sn);
+
+  const handelAnswer = () => {
+    const newStatus = [...answeredStatus];
+    if (givenAns == " ") {
+      newStatus[questionNum] = 1;
+    } else {
+      newStatus[questionNum] = 2; // Mark question as answered
+    }
+    setAnsweredStatus(newStatus);
+  };
+
+  const handelReview = () => {
+    const newStatus = [...answeredStatus];
+    newStatus[questionNum] = 3;
+    setAnsweredStatus(newStatus);
+    if (questionNum <= myData.length) {
+      setQuestionNum(questionNum + 1);
+    }
+  };
+
+  const saveNextQuestion = () => {
     const allQuestions = myData.length;
     if (questionNum <= allQuestions) {
-      console.log(questionNum, allQuestions, "question");
       setQuestionNum(questionNum + 1);
     } else {
       <p>End</p>;
     }
+    dispatch(saveNext({ id: myData[questionNum]?.id, ans: givenAns }));
+    setGivenAns(" ");
+    handelAnswer();
   };
+
   const getData = async () => {
     const jsonData = await fetch(
       "https://mediumvioletred-jackal-642138.hostingersite.com/wp-json/wp/v2/posts"
     );
     const data = await jsonData.json();
     setMyData(data);
-    console.log(data, "data");
-
-    // dispatch(handelQuestionsData(data));
   };
 
   useEffect(() => {
     getData();
   }, []);
-  const mainData = [...dataStore.data, ...myData];
-  console.log(mainData, "data");
+
+  const extractQuestionAndOptions = (htmlContent) => {
+    const tempDiv = document.createElement("div");
+
+    tempDiv.innerHTML = htmlContent;
+    // Extract question
+    const questionElement = tempDiv.querySelector("p strong");
+
+    const questionText = questionElement
+      ? questionElement.parentElement.nextElementSibling.textContent.trim()
+      : "No question found.";
+
+    const imgElement = tempDiv.querySelector("p img");
+
+    const questionImg = imgElement ? imgElement.src : "No Qution Found";
+
+    // Extract options
+    let optionsElements = tempDiv.querySelectorAll("p + ul li");
+    let optionsText = [];
+    optionsElements.forEach((li) => {
+      optionsText.push(li.textContent.trim());
+    });
+
+    const optionsImg = tempDiv.querySelectorAll("p img");
+    const optionImgs = [];
+
+    optionsImg.forEach((img) => {
+      optionImgs.push(img?.src);
+    });
+
+    return {
+      questionText,
+      questionImg,
+      optionsText,
+      optionImgs,
+    };
+  };
+
+  const { questionText, questionImg, optionsText, optionImgs } =
+    extractQuestionAndOptions(myData[questionNum]?.content.rendered);
 
   return (
     <div className=''>
@@ -63,8 +124,13 @@ export default function PerfectRank() {
         <div className='absolute top-10 w-9/12 '>
           <QuestionsContainer
             name={myData[questionNum]?.title?.rendered}
-            content={myData[questionNum]?.content?.rendered}
+            questionText={questionText}
+            questionImg={questionImg}
+            optionsText={optionsText}
+            optionImgs={optionImgs}
             id={myData[questionNum]?.id}
+            value={givenAns}
+            setValue={setGivenAns}
           />
         </div>
         <div className='flex w-full '>
@@ -84,13 +150,15 @@ export default function PerfectRank() {
             </button>
           </div>
           <div className='w-3/12 '>
-            <TestResult data={myData} />
+            <TestResult data={myData} answeredStatus={answeredStatus} />
           </div>
         </div>
       </div>
       <div className='w-9/12 flex justify-between px-4  '>
         <div className=' '>
-          <button className='cursor-pointer bg-[#5d4debfe]  px-3 py-2 mr-2  rounded-lg  text-sm w-48 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
+          <button
+            onClick={handelReview}
+            className='cursor-pointer bg-[#5d4debfe]  px-3 py-2 mr-2  rounded-lg  text-sm w-48 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
             Mark for Review & Next
           </button>
           <button className='cursor-pointer bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
@@ -99,7 +167,7 @@ export default function PerfectRank() {
         </div>
         <button
           className='cursor-pointer  bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'
-          onClick={() => nextQuestion()}>
+          onClick={() => saveNextQuestion()}>
           Save & Next
         </button>
       </div>

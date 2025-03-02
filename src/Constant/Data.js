@@ -64,6 +64,12 @@ export const data = [
         dropDown: false,
       },
       {
+        name: "Quiz",
+        key: "quiz",
+        link: "/quiz",
+        dropDown: false,
+      },
+      {
         name: "PG & Govt Entrance Exams",
         key: "pg",
         link: "/",

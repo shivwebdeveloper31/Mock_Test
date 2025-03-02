@@ -1,58 +1,17 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getQuestionId, handelIsAnsGet } from "../ReduxSlice/ansSlice";
-import { handelQuestionsData } from "../ReduxSlice/questionDataSlice";
 
-function QuestionsContainer({ id, name, content }) {
-  const [givenAns, setGiveAns] = useState("");
-  const dispatch = useDispatch();
-  const extractQuestionAndOptions = (htmlContent) => {
-    const tempDiv = document.createElement("div");
-    console.log(tempDiv, "div");
-
-    tempDiv.innerHTML = htmlContent;
-    // Extract question
-    const questionElement = tempDiv.querySelector("p strong");
-
-    const questionText = questionElement
-      ? questionElement.parentElement.nextElementSibling.textContent.trim()
-      : "No question found.";
-
-    const imgElement = tempDiv.querySelector("p img");
-
-    const questionImg = imgElement ? imgElement.src : "No Qution Found";
-
-    // Extract options
-    let optionsElements = tempDiv.querySelectorAll("p + ul li");
-    let optionsText = [];
-    optionsElements.forEach((li) => {
-      optionsText.push(li.textContent.trim());
-    });
-
-    const optionsImg = tempDiv.querySelectorAll("p img");
-    const optionImgs = [];
-
-    optionsImg.forEach((img) => {
-      optionImgs.push(img?.src);
-    });
-
-    return {
-      questionText,
-      questionImg,
-      optionsText,
-      optionImgs,
-    };
-  };
-
-  const { questionText, questionImg, optionsText, optionImgs } =
-    extractQuestionAndOptions(content);
-
+function QuestionsContainer({
+  id,
+  name,
+  questionText,
+  questionImg,
+  optionsText,
+  optionImgs,
+  value,
+  setValue,
+}) {
   const handelOption = (e) => {
-    setGiveAns(e.target.value);
-    dispatch(
-      handelQuestionsData({ id: id, ans: e.target.value, isAnsGet: true })
-    );
-    dispatch(getQuestionId(id));
+    setValue(e.target.value);
   };
 
   return (
@@ -98,7 +57,8 @@ function QuestionsContainer({ id, name, content }) {
                           name='option'
                           id={option}
                           value={option}
-                          onClick={handelOption}
+                          checked={option == value}
+                          onChange={handelOption}
                         />
                         <label className='mx-2' htmlFor='option'>
                           {option}
@@ -114,7 +74,7 @@ function QuestionsContainer({ id, name, content }) {
                           name='option'
                           id={option}
                           value={option}
-                          onClick={(e) => e.target.value}
+                          onChange={handelOption}
                         />
                         <img className='w-fit ml-2' src={option} alt='option' />
                       </div>

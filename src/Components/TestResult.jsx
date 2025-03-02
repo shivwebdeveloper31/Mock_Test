@@ -1,13 +1,9 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import Questions from "./Questions";
 
-function TestResult({ data }) {
-  // const giveAns = useSelector((store) => store.ans.giveAns);
-  const dataStore = useSelector((store) => store.questionsData);
-  const myData = useSelector((store) => store.questionsData.data);
+function TestResult({ data, answeredStatus }) {
   return (
     <>
       <div className='bg-[#9288effe] '>
@@ -38,9 +34,21 @@ function TestResult({ data }) {
             <span className='text-xs'>General Awareness</span>
           </div>
           <div className='grid grid-cols-5 h-40 px-4 border-b-[1px] border-gray-500'>
-            {data.map((info, i) => {
-              return <Questions key={i} id={info.id} index={i} />;
-            })}
+            {data.map((info, i) => (
+              <div
+                key={i}
+                className={`w-8 h-8 flex items-center justify-center ${
+                  answeredStatus[i] == 1
+                    ? "bg-red-500 rounded-full"
+                    : answeredStatus[i] == 2
+                    ? "bg-green-500 rounded-t-full"
+                    : answeredStatus[i] == 3
+                    ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10"
+                    : "bg-white"
+                }`}>
+                {i + 1}
+              </div>
+            ))}
           </div>
         </div>
         <div className='px-4 py-2'>
