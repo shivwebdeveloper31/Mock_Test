@@ -4,8 +4,6 @@ import CountDown from "../Components/CountDown";
 import TestResult from "../Components/TestResult";
 import QuestionsContainer from "../Components/QuestionsContainer";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { saveNext } from "../ReduxSlice/testSlice";
 
 export default function PerfectRank() {
   const [questionNum, setQuestionNum] = useState(0);
@@ -14,9 +12,6 @@ export default function PerfectRank() {
   const [answeredStatus, setAnsweredStatus] = useState(
     Array(myData?.length).fill(0)
   );
-
-  const dispatch = useDispatch();
-  const storeData = useSelector((store) => store.demo.sn);
 
   const handelAnswer = () => {
     const newStatus = [...answeredStatus];
@@ -44,7 +39,7 @@ export default function PerfectRank() {
     } else {
       <p>End</p>;
     }
-    dispatch(saveNext({ id: myData[questionNum]?.id, ans: givenAns }));
+
     setGivenAns(" ");
     handelAnswer();
   };
