@@ -5,7 +5,7 @@ import TestResult from "../Components/TestResult";
 import QuestionsContainer from "../Components/QuestionsContainer";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addData, removeData } from "../ReduxSlice/questionDataSlice";
+import { addData } from "../ReduxSlice/questionDataSlice";
 
 export default function PerfectRank() {
   const [questionNum, setQuestionNum] = useState(0);
