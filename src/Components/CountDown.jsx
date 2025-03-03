@@ -13,6 +13,7 @@ function CountDown({ time }) {
       clearInterval(timeInterval);
     };
   }, [timeLeft]);
+
   const timeFormat = (seconds) => {
     const Hr = Math.floor(seconds / 3600);
     const Min = Math.floor((seconds % 3600) / 60);

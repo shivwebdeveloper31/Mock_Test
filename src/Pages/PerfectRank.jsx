@@ -18,18 +18,26 @@ export default function PerfectRank() {
     if (givenAns == " ") {
       newStatus[questionNum] = 1;
     } else {
-      newStatus[questionNum] = 2; // Mark question as answered
+      newStatus[questionNum] = 2;
+      // Mark question as answered
     }
     setAnsweredStatus(newStatus);
   };
 
   const handelReview = () => {
     const newStatus = [...answeredStatus];
-    newStatus[questionNum] = 3;
+    console.log(givenAns, "ans");
+
+    if (givenAns == " ") {
+      newStatus[questionNum] = 3;
+    } else {
+      newStatus[questionNum] = 4;
+    }
     setAnsweredStatus(newStatus);
     if (questionNum <= myData.length) {
       setQuestionNum(questionNum + 1);
     }
+    setGivenAns(" ");
   };
 
   const saveNextQuestion = () => {
@@ -156,7 +164,9 @@ export default function PerfectRank() {
             className='cursor-pointer bg-[#5d4debfe]  px-3 py-2 mr-2  rounded-lg  text-sm w-48 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
             Mark for Review & Next
           </button>
-          <button className='cursor-pointer bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
+          <button
+            onClick={() => setGivenAns(" ")}
+            className='cursor-pointer bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
             Clear Response
           </button>
         </div>

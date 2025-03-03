@@ -1,4 +1,5 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,20 +34,30 @@ function TestResult({ data, answeredStatus }) {
             <h1 className='mr-2 text-sm font-semibold'>SECTION</h1>{" "}
             <span className='text-xs'>General Awareness</span>
           </div>
-          <div className='grid grid-cols-5 h-40 px-4 border-b-[1px] border-gray-500'>
+          <div className='grid grid-cols-5  h-40 px-4 border-b-[1px] border-gray-500'>
             {data.map((info, i) => (
-              <div
-                key={i}
-                className={`w-8 h-8 flex items-center justify-center ${
-                  answeredStatus[i] == 1
-                    ? "bg-red-500 rounded-full"
-                    : answeredStatus[i] == 2
-                    ? "bg-green-500 rounded-t-full"
-                    : answeredStatus[i] == 3
-                    ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10"
-                    : "bg-white"
-                }`}>
-                {i + 1}
+              <div key={i} className='relative cursor-pointer h-fit'>
+                <p
+                  className={`px-1 py-1 mx-1  flex items-center justify-center ${
+                    answeredStatus[i] == 1
+                      ? "bg-red-500 rounded-b-full text-white"
+                      : answeredStatus[i] == 2
+                      ? "bg-green-500 rounded-t-full text-white"
+                      : answeredStatus[i] == 3
+                      ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
+                      : answeredStatus[i] == 4
+                      ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
+                      : "bg-white"
+                  }`}>
+                  {i + 1}
+                </p>
+                {answeredStatus[i] == 4 ? (
+                  <span className='absolute -top-3 left-6  text-green-600 '>
+                    <FontAwesomeIcon className='size-8' icon={faCheck} />
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
             ))}
           </div>
