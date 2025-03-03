@@ -4,6 +4,8 @@ import CountDown from "../Components/CountDown";
 import TestResult from "../Components/TestResult";
 import QuestionsContainer from "../Components/QuestionsContainer";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addData } from "../ReduxSlice/questionDataSlice";
 
 export default function PerfectRank() {
   const [questionNum, setQuestionNum] = useState(0);
@@ -12,24 +14,50 @@ export default function PerfectRank() {
   const [answeredStatus, setAnsweredStatus] = useState(
     Array(myData?.length).fill(0)
   );
+  const [notVisited, setNotVisited] = useState(0);
+  console.log(notVisited, "not");
+
+  const dispatch = useDispatch();
 
   const handelAnswer = () => {
     const newStatus = [...answeredStatus];
     if (givenAns == " ") {
       newStatus[questionNum] = 1;
     } else {
-      newStatus[questionNum] = 2; // Mark question as answered
+      newStatus[questionNum] = 2;
+      // Mark question as answered
     }
     setAnsweredStatus(newStatus);
   };
 
   const handelReview = () => {
     const newStatus = [...answeredStatus];
-    newStatus[questionNum] = 3;
+    if (givenAns == " ") {
+      setNotVisited(notVisited - 1);
+      newStatus[questionNum] = 3;
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "marked",
+          mainData: givenAns,
+        })
+      );
+    } else {
+      setNotVisited(notVisited - 1);
+      newStatus[questionNum] = 4;
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "markedAnswered",
+          mainData: givenAns,
+        })
+      );
+    }
     setAnsweredStatus(newStatus);
     if (questionNum <= myData.length) {
       setQuestionNum(questionNum + 1);
     }
+    setGivenAns(" ");
   };
 
   const saveNextQuestion = () => {
@@ -39,9 +67,28 @@ export default function PerfectRank() {
     } else {
       <p>End</p>;
     }
-
     setGivenAns(" ");
     handelAnswer();
+    setNotVisited(notVisited - 1);
+    if (givenAns == " ") {
+      setNotVisited(notVisited - 1);
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "notAnswered",
+          mainData: givenAns,
+        })
+      );
+    } else {
+      setNotVisited(notVisited - 1);
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "answered",
+          mainData: givenAns,
+        })
+      );
+    }
   };
 
   const getData = async () => {
@@ -50,6 +97,7 @@ export default function PerfectRank() {
     );
     const data = await jsonData.json();
     setMyData(data);
+    setNotVisited(data.length);
   };
 
   useEffect(() => {
@@ -145,7 +193,11 @@ export default function PerfectRank() {
             </button>
           </div>
           <div className='w-3/12 '>
-            <TestResult data={myData} answeredStatus={answeredStatus} />
+            <TestResult
+              data={myData}
+              answeredStatus={answeredStatus}
+              notVisited={notVisited}
+            />
           </div>
         </div>
       </div>
@@ -156,7 +208,9 @@ export default function PerfectRank() {
             className='cursor-pointer bg-[#5d4debfe]  px-3 py-2 mr-2  rounded-lg  text-sm w-48 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
             Mark for Review & Next
           </button>
-          <button className='cursor-pointer bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
+          <button
+            onClick={() => setGivenAns(" ")}
+            className='cursor-pointer bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
             Clear Response
           </button>
         </div>

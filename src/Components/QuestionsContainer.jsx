@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CountDown from "./CountDown";
 
 function QuestionsContainer({
   id,
@@ -18,15 +19,15 @@ function QuestionsContainer({
     <>
       <div className='py-2'>
         <div className='flex shadow-sm py-2 px-4  w-full items-center'>
-          <div className='w-8/12'>
+          <div className='w-7/12'>
             <h1 className='text-sm font-semibold'>{name} </h1>
           </div>
           <div className='flex w-4/12 justify-around'>
             <div className='mx-2'>
               <p className='text-sm'>Marks</p>
             </div>
-            <div className='mx-2'>
-              <p className='text-sm'>Time </p>
+            <div className='mx-2 flex'>
+              <span className='text-sm mx-1 font-semibold'>Time </span>
             </div>
             <div className='mx-2'>
               <label className='text-sm' htmlFor='lang'>
