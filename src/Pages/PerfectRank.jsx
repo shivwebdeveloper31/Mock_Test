@@ -4,6 +4,8 @@ import CountDown from "../Components/CountDown";
 import TestResult from "../Components/TestResult";
 import QuestionsContainer from "../Components/QuestionsContainer";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addData, removeData } from "../ReduxSlice/questionDataSlice";
 
 export default function PerfectRank() {
   const [questionNum, setQuestionNum] = useState(0);
@@ -12,6 +14,10 @@ export default function PerfectRank() {
   const [answeredStatus, setAnsweredStatus] = useState(
     Array(myData?.length).fill(0)
   );
+  const [notVisited, setNotVisited] = useState(0);
+  console.log(notVisited, "not");
+
+  const dispatch = useDispatch();
 
   const handelAnswer = () => {
     const newStatus = [...answeredStatus];
@@ -26,12 +32,26 @@ export default function PerfectRank() {
 
   const handelReview = () => {
     const newStatus = [...answeredStatus];
-    console.log(givenAns, "ans");
-
     if (givenAns == " ") {
+      setNotVisited(notVisited - 1);
       newStatus[questionNum] = 3;
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "marked",
+          mainData: givenAns,
+        })
+      );
     } else {
+      setNotVisited(notVisited - 1);
       newStatus[questionNum] = 4;
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "markedAnswered",
+          mainData: givenAns,
+        })
+      );
     }
     setAnsweredStatus(newStatus);
     if (questionNum <= myData.length) {
@@ -47,9 +67,28 @@ export default function PerfectRank() {
     } else {
       <p>End</p>;
     }
-
     setGivenAns(" ");
     handelAnswer();
+    setNotVisited(notVisited - 1);
+    if (givenAns == " ") {
+      setNotVisited(notVisited - 1);
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "notAnswered",
+          mainData: givenAns,
+        })
+      );
+    } else {
+      setNotVisited(notVisited - 1);
+      dispatch(
+        addData({
+          id: questionNum,
+          arrayName: "answered",
+          mainData: givenAns,
+        })
+      );
+    }
   };
 
   const getData = async () => {
@@ -58,6 +97,7 @@ export default function PerfectRank() {
     );
     const data = await jsonData.json();
     setMyData(data);
+    setNotVisited(data.length);
   };
 
   useEffect(() => {
@@ -153,7 +193,11 @@ export default function PerfectRank() {
             </button>
           </div>
           <div className='w-3/12 '>
-            <TestResult data={myData} answeredStatus={answeredStatus} />
+            <TestResult
+              data={myData}
+              answeredStatus={answeredStatus}
+              notVisited={notVisited}
+            />
           </div>
         </div>
       </div>

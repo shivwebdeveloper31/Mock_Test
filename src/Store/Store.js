@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ansSlice from "../ReduxSlice/ansSlice";
+import questionDataSlice from "../ReduxSlice/questionDataSlice";
 
 export const Store = configureStore({
   reducer: {
-    ans: ansSlice,
+    data: questionDataSlice,
   },
 });

@@ -1,10 +1,15 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
-function TestResult({ data, answeredStatus }) {
+function TestResult({ data, answeredStatus, notVisited }) {
+  const answered = useSelector((store) => store.data.answered);
+  const notAnswered = useSelector((store) => store.data.notAnswered);
+  const marked = useSelector((store) => store.data.marked);
+  const markedAnswered = useSelector((store) => store.data.markedAnswered);
+
   return (
     <>
       <div className='bg-[#9288effe] '>
@@ -13,19 +18,37 @@ function TestResult({ data, answeredStatus }) {
           <p>Shradhanand Patil</p>
         </div>
         <div className='flex flex-wrap justify-between p-2 border-b-[1px] border-gray-500'>
-          <div>
+          <div className='flex items-center my-1'>
+            <button className='px-2   bg-green-500 rounded-t-full text-white text-[13px]'>
+              {answered ? answered.length : 0}
+            </button>
             <p className='text-xs mx-2 my-1'>Answered</p>
           </div>
-          <div>
+          <div className='flex items-center my-1'>
+            <button className='bg-purple-500 px-2 rounded-lg text-white text-[13px]'>
+              {marked ? marked.length : 0}
+            </button>
             <p className='text-xs mx-2 my-1'>Marked</p>
           </div>
-          <div>
+          <div className='flex items-center my-1'>
+            <button className='px-2 bg-white text-[13px]'>
+              {notVisited ? notVisited : 0}
+            </button>
             <p className='text-xs mx-2 my-1'>Not Visited</p>
           </div>
-          <div>
+          <div className='flex items-center my-1 relative'>
+            <button className='bg-purple-500 px-2 rounded-lg text-white text-[13px]'>
+              {markedAnswered ? markedAnswered.length : 0}
+            </button>
+            <span className='absolute -top-2 left-2  text-green-600 '>
+              <FontAwesomeIcon className='size-5' icon={faCheck} />
+            </span>
             <p className='text-xs mx-2 my-1'>Marked and answered</p>
           </div>
-          <div>
+          <div className='flex items-center my-1'>
+            <button className='bg-red-500 px-2 rounded-b-full text-white text-[13px]'>
+              {notAnswered ? notAnswered.length : 0}
+            </button>
             <p className='text-xs mx-2 my-1'>Not Answered</p>
           </div>
         </div>
@@ -35,31 +58,33 @@ function TestResult({ data, answeredStatus }) {
             <span className='text-xs'>General Awareness</span>
           </div>
           <div className='grid grid-cols-5  h-40 px-4 border-b-[1px] border-gray-500'>
-            {data.map((info, i) => (
-              <div key={i} className='relative cursor-pointer h-fit'>
-                <p
-                  className={`px-1 py-1 mx-1  flex items-center justify-center ${
-                    answeredStatus[i] == 1
-                      ? "bg-red-500 rounded-b-full text-white"
-                      : answeredStatus[i] == 2
-                      ? "bg-green-500 rounded-t-full text-white"
-                      : answeredStatus[i] == 3
-                      ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
-                      : answeredStatus[i] == 4
-                      ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
-                      : "bg-white"
-                  }`}>
-                  {i + 1}
-                </p>
-                {answeredStatus[i] == 4 ? (
-                  <span className='absolute -top-3 left-6  text-green-600 '>
-                    <FontAwesomeIcon className='size-8' icon={faCheck} />
-                  </span>
-                ) : (
-                  ""
-                )}
-              </div>
-            ))}
+            {data.map((info, i) => {
+              return (
+                <div key={i} className='relative cursor-pointer h-fit'>
+                  <p
+                    className={`px-1 py-1 mx-1  flex items-center justify-center ${
+                      answeredStatus[i] == 1
+                        ? "bg-red-500 rounded-b-full text-white"
+                        : answeredStatus[i] == 2
+                        ? "bg-green-500 rounded-t-full text-white"
+                        : answeredStatus[i] == 3
+                        ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
+                        : answeredStatus[i] == 4
+                        ? "bg-purple-500 rounded-l-xl rounded-r-xl w-10 text-white"
+                        : "bg-white"
+                    }`}>
+                    {i + 1}
+                  </p>
+                  {answeredStatus[i] == 4 ? (
+                    <span className='absolute -top-3 left-6  text-green-600 '>
+                      <FontAwesomeIcon className='size-8' icon={faCheck} />
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className='px-4 py-2'>
