@@ -67,7 +67,7 @@ export default function PerfectRank() {
       ? questionElement.parentElement.nextElementSibling.textContent.trim()
       : "No question found.";
 
-    const imgElement = tempDiv.querySelector("p img");
+    const imgElement = tempDiv.querySelector("img");
 
     const questionImg = imgElement ? imgElement.src : "No Qution Found";
 
@@ -78,7 +78,7 @@ export default function PerfectRank() {
       optionsText.push(li.textContent.trim());
     });
 
-    const optionsImg = tempDiv.querySelectorAll("p img");
+    const optionsImg = tempDiv.querySelectorAll("strong img");
     const optionImgs = [];
 
     optionsImg.forEach((img) => {
