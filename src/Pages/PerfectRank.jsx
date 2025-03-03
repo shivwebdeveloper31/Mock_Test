@@ -15,17 +15,17 @@ export default function PerfectRank() {
     Array(myData?.length).fill(0)
   );
   const [notVisited, setNotVisited] = useState(0);
-  console.log(notVisited, "not");
-
   const dispatch = useDispatch();
 
   const handelAnswer = () => {
+    // createing a new array as length of the myData and file all as a zero (0)
+    // const newStatus = [0,0,0,0,0,0,0]
+
     const newStatus = [...answeredStatus];
     if (givenAns == " ") {
-      newStatus[questionNum] = 1;
+      newStatus[questionNum] = 1; //if questionNum ==0  then  const newStaus=[1,0,0,0,0,0,0] {1 == not ans}
     } else {
-      newStatus[questionNum] = 2;
-      // Mark question as answered
+      newStatus[questionNum] = 2; // const newStaus=[2,0,0,0,0,0,0] { 2 == give ans}
     }
     setAnsweredStatus(newStatus);
   };
@@ -34,7 +34,7 @@ export default function PerfectRank() {
     const newStatus = [...answeredStatus];
     if (givenAns == " ") {
       setNotVisited(notVisited - 1);
-      newStatus[questionNum] = 3;
+      newStatus[questionNum] = 3; // 3 == marked
       dispatch(
         addData({
           id: questionNum,
@@ -44,7 +44,7 @@ export default function PerfectRank() {
       );
     } else {
       setNotVisited(notVisited - 1);
-      newStatus[questionNum] = 4;
+      newStatus[questionNum] = 4; // 4 == marked ans
       dispatch(
         addData({
           id: questionNum,
@@ -61,15 +61,17 @@ export default function PerfectRank() {
   };
 
   const saveNextQuestion = () => {
+    // for next question
     const allQuestions = myData.length;
     if (questionNum <= allQuestions) {
       setQuestionNum(questionNum + 1);
     } else {
       <p>End</p>;
     }
-    setGivenAns(" ");
-    handelAnswer();
+    setGivenAns(" "); // set option to null
+    handelAnswer(); // useing this function we set all answer stauts
     setNotVisited(notVisited - 1);
+    // not answered
     if (givenAns == " ") {
       setNotVisited(notVisited - 1);
       dispatch(
@@ -81,6 +83,7 @@ export default function PerfectRank() {
       );
     } else {
       setNotVisited(notVisited - 1);
+      // answered
       dispatch(
         addData({
           id: questionNum,
@@ -106,26 +109,28 @@ export default function PerfectRank() {
 
   const extractQuestionAndOptions = (htmlContent) => {
     const tempDiv = document.createElement("div");
+    console.log(tempDiv);
 
     tempDiv.innerHTML = htmlContent;
-    // Extract question
+    // Extract question Text
     const questionElement = tempDiv.querySelector("p strong");
 
     const questionText = questionElement
       ? questionElement.parentElement.nextElementSibling.textContent.trim()
       : "No question found.";
 
+    // Extract question img
     const imgElement = tempDiv.querySelector("img");
-
     const questionImg = imgElement ? imgElement.src : "No Qution Found";
 
-    // Extract options
+    // Extract options Text
     let optionsElements = tempDiv.querySelectorAll("p + ul li");
     let optionsText = [];
+
     optionsElements.forEach((li) => {
       optionsText.push(li.textContent.trim());
     });
-
+    // Extract options Img
     const optionsImg = tempDiv.querySelectorAll("strong img");
     const optionImgs = [];
 
@@ -202,7 +207,7 @@ export default function PerfectRank() {
         </div>
       </div>
       <div className='w-9/12 flex justify-between px-4  '>
-        <div className=' '>
+        <div className=' mb-2'>
           <button
             onClick={handelReview}
             className='cursor-pointer bg-[#5d4debfe]  px-3 py-2 mr-2  rounded-lg  text-sm w-48 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'>
@@ -215,7 +220,7 @@ export default function PerfectRank() {
           </button>
         </div>
         <button
-          className='cursor-pointer  bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'
+          className='cursor-pointer mb-2  bg-[#5d4debfe] px-3 py-2 mr-2 rounded-lg  text-sm w-36 hover:bg-[#4c3fbcfe] transition-all duration-500 ease-in-out  text-white'
           onClick={() => saveNextQuestion()}>
           Save & Next
         </button>
