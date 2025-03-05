@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import CountDown from "./CountDown";
-
+import PropTypes from "prop-types";
 function QuestionsContainer({
-  id,
   name,
   questionText,
   questionImg,
@@ -20,7 +17,7 @@ function QuestionsContainer({
       <div className='py-2'>
         <div className='flex shadow-sm py-2 px-4  w-full items-center'>
           <div className='w-7/12'>
-            <h1 className='text-sm font-semibold'>{name} </h1>
+            <h1 className='text-sm font-semibold'>{name}</h1>
           </div>
           <div className='flex w-4/12 justify-around'>
             <div className='mx-2'>
@@ -88,5 +85,16 @@ function QuestionsContainer({
     </>
   );
 }
+
+QuestionsContainer.propTypes = {
+  id: PropTypes.number.isRequired, // Ensures 'id' is required
+  name: PropTypes.string.isRequired, // Ensures 'name' is required
+  questionText: PropTypes.string, // Can be null, so not required
+  questionImg: PropTypes.string, // Should be a string, not an array
+  optionsText: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensures it's an array of strings
+  optionImgs: PropTypes.arrayOf(PropTypes.string), // Ensures it's an array of strings (image URLs)
+  value: PropTypes.string.isRequired, // Selected option should be a string
+  setValue: PropTypes.func.isRequired, // Function to update selected option
+};
 
 export default QuestionsContainer;

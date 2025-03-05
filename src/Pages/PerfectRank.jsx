@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../Img/perfect_rank.png";
 import CountDown from "../Components/CountDown";
 import TestResult from "../Components/TestResult";
@@ -8,13 +8,17 @@ import { useDispatch } from "react-redux";
 import { addData } from "../ReduxSlice/questionDataSlice";
 
 export default function PerfectRank() {
-  const [questionNum, setQuestionNum] = useState(0);
-  const [givenAns, setGivenAns] = useState(" ");
   const [myData, setMyData] = useState([]);
+  const myDataLength = myData.length;
+  const [notVisited, setNotVisited] = useState(0);
+  const [questionNum, setQuestionNum] = useState(0);
+  console.log(myDataLength, "myData");
+
+  const [givenAns, setGivenAns] = useState(" ");
   const [answeredStatus, setAnsweredStatus] = useState(
     Array(myData?.length).fill(0)
   );
-  const [notVisited, setNotVisited] = useState(0);
+
   const dispatch = useDispatch();
 
   const handelAnswer = () => {
@@ -31,66 +35,70 @@ export default function PerfectRank() {
   };
 
   const handelReview = () => {
-    const newStatus = [...answeredStatus];
-    if (givenAns == " ") {
-      setNotVisited(notVisited - 1);
-      newStatus[questionNum] = 3; // 3 == marked
-      dispatch(
-        addData({
-          id: questionNum,
-          arrayName: "marked",
-          mainData: givenAns,
-        })
-      );
-    } else {
-      setNotVisited(notVisited - 1);
-      newStatus[questionNum] = 4; // 4 == marked ans
-      dispatch(
-        addData({
-          id: questionNum,
-          arrayName: "markedAnswered",
-          mainData: givenAns,
-        })
-      );
+    if (myData?.length > questionNum) {
+      const newStatus = [...answeredStatus];
+      if (givenAns == " ") {
+        notVisited >= 1 && setNotVisited(notVisited - 1);
+        newStatus[questionNum] = 3; // 3 == marked
+        dispatch(
+          addData({
+            id: questionNum,
+            arrayName: "marked",
+            mainData: givenAns,
+          })
+        );
+      } else {
+        notVisited >= 1 && setNotVisited(notVisited - 1);
+        newStatus[questionNum] = 4; // 4 == marked ans
+        dispatch(
+          addData({
+            id: questionNum,
+            arrayName: "markedAnswered",
+            mainData: givenAns,
+          })
+        );
+      }
+      setAnsweredStatus(newStatus);
+      if (questionNum <= myData.length) {
+        setQuestionNum(questionNum + 1);
+      }
+      setGivenAns(" ");
     }
-    setAnsweredStatus(newStatus);
-    if (questionNum <= myData.length) {
-      setQuestionNum(questionNum + 1);
-    }
-    setGivenAns(" ");
   };
 
   const saveNextQuestion = () => {
-    // for next question
-    const allQuestions = myData.length;
-    if (questionNum <= allQuestions) {
-      setQuestionNum(questionNum + 1);
-    } else {
-      <p>End</p>;
-    }
-    setGivenAns(" "); // set option to null
-    handelAnswer(); // useing this function we set all answer stauts
-    setNotVisited(notVisited - 1);
-    // not answered
-    if (givenAns == " ") {
-      setNotVisited(notVisited - 1);
-      dispatch(
-        addData({
-          id: questionNum,
-          arrayName: "notAnswered",
-          mainData: givenAns,
-        })
-      );
-    } else {
-      setNotVisited(notVisited - 1);
-      // answered
-      dispatch(
-        addData({
-          id: questionNum,
-          arrayName: "answered",
-          mainData: givenAns,
-        })
-      );
+    if (myData?.length > questionNum) {
+      // for next question
+      const allQuestions = myData.length;
+      if (questionNum <= allQuestions) {
+        setQuestionNum(questionNum + 1);
+      } else {
+        <p>End</p>;
+      }
+      setGivenAns(" "); // set option to null
+      handelAnswer(); // useing this function we set all answer stauts
+
+      // not answered
+      if (givenAns == " ") {
+        notVisited >= 1 && setNotVisited(notVisited - 1);
+        dispatch(
+          addData({
+            id: questionNum,
+            arrayName: "notAnswered",
+            mainData: givenAns,
+          })
+        );
+      } else {
+        notVisited >= 1 && setNotVisited(notVisited - 1);
+        // answered
+        dispatch(
+          addData({
+            id: questionNum,
+            arrayName: "answered",
+            mainData: givenAns,
+          })
+        );
+      }
     }
   };
 
@@ -99,8 +107,11 @@ export default function PerfectRank() {
       "https://mediumvioletred-jackal-642138.hostingersite.com/wp-json/wp/v2/posts"
     );
     const data = await jsonData.json();
-    setMyData(data);
+    const reverseData = [...data].reverse();
+    reverseData ? setMyData(reverseData) : [];
     setNotVisited(data.length);
+    console.log(data, "data");
+    console.log(questionNum, "num");
   };
 
   useEffect(() => {
@@ -109,7 +120,6 @@ export default function PerfectRank() {
 
   const extractQuestionAndOptions = (htmlContent) => {
     const tempDiv = document.createElement("div");
-    console.log(tempDiv);
 
     tempDiv.innerHTML = htmlContent;
     // Extract question Text
@@ -130,6 +140,7 @@ export default function PerfectRank() {
     optionsElements.forEach((li) => {
       optionsText.push(li.textContent.trim());
     });
+
     // Extract options Img
     const optionsImg = tempDiv.querySelectorAll("strong img");
     const optionImgs = [];
@@ -176,7 +187,6 @@ export default function PerfectRank() {
             questionImg={questionImg}
             optionsText={optionsText}
             optionImgs={optionImgs}
-            id={myData[questionNum]?.id}
             value={givenAns}
             setValue={setGivenAns}
           />

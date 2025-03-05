@@ -1,8 +1,8 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 function TestResult({ data, answeredStatus, notVisited }) {
   const answered = useSelector((store) => store.data.answered);
@@ -105,4 +105,9 @@ function TestResult({ data, answeredStatus, notVisited }) {
   );
 }
 
+TestResult.propTypes = {
+  data: PropTypes.array.isRequired,
+  answeredStatus: PropTypes.array.isRequired,
+  notVisited: PropTypes.number,
+};
 export default TestResult;

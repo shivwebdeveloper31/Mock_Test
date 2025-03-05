@@ -1,6 +1,6 @@
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import { useState } from "react";
 import BooksList from "./BooksList";
 import { data } from "../Constant/Data";
 import { NavLink } from "react-router-dom";

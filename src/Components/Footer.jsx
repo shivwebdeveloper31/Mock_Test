@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaTelegram,
   FaFacebook,
@@ -14,10 +13,12 @@ const Footer = () => {
     <>
       <div className='mt-24 bg-gray-200 flex justify-center border-b-2 align-text-top hover:text-blue-500'>
         <FaChevronUp className='text-lg mt-6 ' />
+
         <a href='#home'>
           <h3 className='text-center p-5'>Back to Top</h3>
         </a>
       </div>
+
       <footer className='bg-gray-100 text-gray-800 py-10 px-6 md:px-12 lg:px-24 font-bold'>
         {/* Grid layout for responsiveness */}
         <div className='max-w-7xl p-2 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10'>

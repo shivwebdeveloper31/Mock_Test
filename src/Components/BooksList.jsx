@@ -1,9 +1,8 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import PropTypes from "prop-types";
 
 function BooksList({ booksList, kyeName }) {
-  console.log(booksList[kyeName], "booklist");
   const { books = [], heading = [] } = booksList[kyeName] || {};
 
   return (
@@ -36,5 +35,10 @@ function BooksList({ booksList, kyeName }) {
     </>
   );
 }
+
+BooksList.propTypes = {
+  booksList: PropTypes.object,
+  keyName: PropTypes.string.isRequired,
+};
 
 export default BooksList;
