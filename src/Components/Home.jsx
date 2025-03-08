@@ -18,7 +18,7 @@ function Home() {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 1,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -27,7 +27,7 @@ function Home() {
   };
   return (
     <>
-      <div className='relative top-24 z-0' id='home'>
+      <div className='relative top-24 ' id='home'>
         <Carousel responsive={responsive}>
           <div className=''>
             <img src={img3} className='w-full h-96' alt='' />

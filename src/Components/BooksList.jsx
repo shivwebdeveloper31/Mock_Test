@@ -2,8 +2,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
-function BooksList({ booksList, kyeName }) {
-  const { books = [], heading = [] } = booksList[kyeName] || {};
+function BooksList({ booksList, keyName }) {
+  const { books = [], heading = [] } = booksList[keyName] || {};
 
   return (
     <>
